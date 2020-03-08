@@ -1,3 +1,0 @@
-Program: ./convexHull435 J triangle100000.txt
-Total time: 0:00.03
-
