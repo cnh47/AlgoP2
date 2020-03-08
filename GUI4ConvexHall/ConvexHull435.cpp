@@ -5,8 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-#include "Jarvis.hpp"
-#include "Gram.hpp"
+#include "JarvisMarch.hpp"
+#include "Graham.hpp"
 #include "QuickHull.hpp"
 
 void ReadInPoint(std::string);
