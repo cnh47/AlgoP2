@@ -9,13 +9,7 @@
 #ifndef JARVISMARCH_HPP_INCLUDED
 #define JARVISMARCH_HPP_INCLUDED
 
-#include <vector>
-#include <iostream>
-#include <fstream>
-struct Point
-{
-    int x, y;
-};
+#include "convexHull435.hpp"
 
 class Jarvis
 {

@@ -1,23 +1,21 @@
+#ifndef GRAHAM_HPP_INCLUDED
+#define GRAHAM_HPP_INCLUDED
 // A C++ program to find convex hull of a set of points. Refer
 // https://www.geeksforgeeks.org/orientation-3-ordered-points/
 // for explanation of orientation()
 
-#include <stack>
-#include <iostream>
-#include <fstream>
-
-struct Point
-{
-    int x, y;
-};
+#include "convexHull435.hpp"
 
 class Graham{
-public:
-
+private:
     // A global point needed for sorting points with reference
     // to the first point Used in compare function of qsort()
     Point p0;
+public:
 
+    Point GetPoint(){
+        return p0;
+    }
     // A utility function to find next to top in a stack
     Point nextToTop(std::stack<Point> &S);
 
@@ -35,10 +33,7 @@ public:
     // 2 --> Counterclockwise
     int orientation(Point p, Point q, Point r);
 
-    // A function used by library function qsort() to sort an array of
-    // points with respect to the first point
-    int compare(const void *vp1, const void *vp2);
-
     // Prints convex hull of a set of n points.
-    void convexHull(Point points[], int n);
+    void convexHull(std::vector<Point> points, int n, std::ofstream &output);
 };
+#endif

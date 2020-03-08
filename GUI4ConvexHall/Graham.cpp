@@ -8,6 +8,10 @@
 #include "Graham.hpp"
 #include <stdlib.h>
 
+// A function used by library function qsort() to sort an array of
+// points with respect to the first point
+int compare(const void *vp1, const void *vp2);
+
 // A utility function to find next to top in a stack
 Point Graham::nextToTop(std::stack<Point> &S)
 {
@@ -50,21 +54,23 @@ int Graham::orientation(Point p, Point q, Point r)
 
 // A function used by library function qsort() to sort an array of
 // points with respect to the first point
-int Graham::compare(const void *vp1, const void *vp2)
+int compare(const void *vp1, const void *vp2)
 {
     Point *p1 = (Point *)vp1;
     Point *p2 = (Point *)vp2;
+	Graham tmp;
+	//Point p0 = Graham::GetPoint();
 
     // Find orientation
-    int o = orientation(p0, *p1, *p2);
+    int o = tmp.orientation(tmp.GetPoint(), *p1, *p2);
     if (o == 0)
-    	return (distSq(p0, *p2) >= distSq(p0, *p1))? -1 : 1;
+    	return (tmp.distSq(tmp.GetPoint(), *p2) >= tmp.distSq(tmp.GetPoint(), *p1))? -1 : 1;
 
     return (o == 2)? -1: 1;
 }
 
 // Prints convex hull of a set of n points.
-void Graham::convexHull(Point points[], int n)
+void Graham::convexHull(std::vector<Point> points, int n, std::ofstream &output)
 {
    // Find the bottommost point
    int ymin = points[0].y, min = 0;
@@ -87,7 +93,7 @@ void Graham::convexHull(Point points[], int n)
    // has larger polar angle (in counterclockwise
    // direction) than p1
    p0 = points[0];
-   qsort(&points[1], n-1, sizeof(Point), compare);
+   std::qsort(&points[1], n-1, sizeof(Point), compare);
 
    // If two or more points make same angle with p0,
    // Remove all but the one that is farthest from p0
@@ -134,17 +140,7 @@ void Graham::convexHull(Point points[], int n)
    while (!S.empty())
    {
        Point p = S.top();
-       std::cout << "(" << p.x << ", " << p.y <<")" << std::endl;
+       output << p.x << '\t' << p.y << std::endl;
        S.pop();
    }
 }
-
-// Driver program to test above functions
-// int main()
-// {
-// 	Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4},
-// 					{0, 0}, {1, 2}, {3, 1}, {3, 3}};
-// 	int n = sizeof(points)/sizeof(points[0]);
-// 	convexHull(points, n);
-// 	return 0;
-// }
