@@ -1,0 +1,3 @@
+Program: ./convexHull435 J rectangle10000.txt
+Total time: 0:00.01
+

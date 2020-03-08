@@ -1,24 +1,34 @@
 // A C++ program to find convex hull of a set of points. Refer
 // https://www.geeksforgeeks.org/orientation-3-ordered-points/
 // for explanation of orientation()
-//#include <bits/stdc++.h>
-using namespace std;
-class Jarvis{
-public:
-    Jarvis();
 
-    struct Point
-    {
-        int x, y;
-    };
+//This implementation is taken from
+//https://www.geeksforgeeks.org/convex-hull-set-1-jarviss-algorithm-or-wrapping/
+//with permission from Prof. Duan to use in this project.
 
-    // To find orientation of ordered triplet (p, q, r).
-    // The function returns following values
-    // 0 --> p, q and r are colinear
-    // 1 --> Clockwise
-    // 2 --> Counterclockwise
-    int orientation(Point p, Point q, Point r);
+#ifndef JARVISMARCH_HPP_INCLUDED
+#define JARVISMARCH_HPP_INCLUDED
 
-    // Prints convex hull of a set of n points.
-    void convexHull(Point points[], int n);
+#include <vector>
+#include <iostream>
+#include <fstream>
+struct Point
+{
+    int x, y;
 };
+
+class Jarvis
+{
+    public:
+        //find orientation of ordered triplet
+        int orientation(Point p, Point q, Point r);
+
+        //prints convex hull of a set of n points
+        void convexHull(std::vector<Point> points, int n, std::ofstream &output);
+
+        //point structure
+
+
+};
+
+#endif

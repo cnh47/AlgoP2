@@ -1,67 +1,68 @@
+
 // You need to complete this program for your second project.
 
 // Standard libraries
 #include <string>
-#include <iostream>
-#include <fstream>
 #include <stdlib.h>
+#include <fstream>
 #include "JarvisMarch.hpp"
-#include "Graham.hpp"
-#include "QuickHull.hpp"
-
-void ReadInPoint(std::string);
-int GetArrySize(std::string FileName);
 
 int main(int argc, char *argv[])
 {
-    Jarvis Jarvis;
     if (argc < 3)
-      std::cout << "wrong format! should be \"a.exe algType dataFile\"";
-    else {
-      std::string algType = argv[1];
-      std::string dataFilename = argv[2];
+        std::cout << "wrong format! should be \"a.exe algType dataFile\"";
+    else
+    {
+        std::string algType = argv[1];
+        std::string dataFilename = argv[2];
+        std::string outputFile = "";
+        std::ifstream dataFile;
+        dataFile.open(dataFilename);
+        //read your data points from dataFile (see class example for the format)
 
-      std::string outputFile = "";
-      //read your data points from dataFile (see class example for the format)
+        switch(algType[0])
+        {
+            case 'G':
+                //call your Graham Scan algorithm to solve the problem
 
-        if (algType[0]=='G') {
-           //call your Graham Scan algorithm to solve the problem
+                outputFile = "hull_G.txt";
+                break;
 
-           outputFile = "hull_G.txt";
+            case 'J':
+                {
+                    //call your Javis March algorithm to solve the problem
+                    Jarvis jarvisHull;
+                    Point tmp;
+                    std::vector<Point> points;
+                    int n=0, x=0, y=0;
+
+                    while(dataFile >> tmp.x >> tmp.y)
+                    {
+                        points.push_back(tmp);
+                        ++n;
+                    }
+
+                    outputFile = "hull_J_" + dataFilename;
+                    std::ofstream hullFile(outputFile);
+                    jarvisHull.convexHull(points, n, hullFile);
+                    hullFile.close();
+                    break;
+                }
+            case 'Q':
+                //call your Quickhull algorithm to solve the problem
+
+                outputFile = "hull_Q.txt";
+                break;
+            default:
+                //any other parameter is called
+                std::cout << "You done messed up AA Ron!" << std::endl;
+                break;
         }
-        else if (algType[0]=='J') {
-           //call your Javis March algorithm to solve the problem
-           outputFile = "hull_J.txt";
-        }
-        else { //default
-           //call your Quickhull algorithm to solve the problem
-           outputFile = "hull_Q.txt";
-        }
 
-      //write your convex hull to the outputFile (see class example for the format)
-      //you should be able to visulize your convex hull using the "ConvexHull_GUI" program.
+        //write your convex hull to the outputFile (see class example for the format)
+        //you should be able to visulize your convex hull using the "ConvexHull_GUI" program.
+        dataFile.close();
     }
 
     return 0;
-}
-
-int GetArrySize(std::string FileName){
-    ifstream InFile;
-    int size;
-    std::string x;
-    InFile.open(FileName);
-    while(InFile >> x){
-        size++;
-    }
-    return size;
-}
-
-void ReadInPoints(std::string FileName){
-    ifstream InFile;
-    int x, y;
-    InFile.open(FileName);
-
-    while(!InFile >> x >> y){
-
-    }
 }

@@ -1,0 +1,3 @@
+Program: ./convexHull435 J onCircle1000.txt
+Total time: 0:00.00
+

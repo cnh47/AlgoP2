@@ -1,22 +1,25 @@
 // A C++ program to find convex hull of a set of points. Refer
 // https://www.geeksforgeeks.org/orientation-3-ordered-points/
 // for explanation of orientation()
-#include <stack>
 
-using namespace std;
-class Gram{
+#include <stack>
+#include <iostream>
+#include <fstream>
+
+struct Point
+{
+    int x, y;
+};
+
+class Graham{
 public:
-    struct Point
-    {
-    	int x, y;
-    };
 
     // A global point needed for sorting points with reference
     // to the first point Used in compare function of qsort()
     Point p0;
 
     // A utility function to find next to top in a stack
-    Point nextToTop(stack<Point> &S);
+    Point nextToTop(std::stack<Point> &S);
 
     // A utility function to swap two points
     int swap(Point &p1, Point &p2);
