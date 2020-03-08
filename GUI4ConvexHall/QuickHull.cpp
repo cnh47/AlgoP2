@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+/*
+#include <bits/stdc++.h>
 
 // Returns the side of point p with respect to line
 // joining points p1 and p2.
@@ -104,3 +105,4 @@ void Quick::printHull(iPair a[], int n)
 // 	printHull(a, n);
 // 	return 0;
 // }
+*/

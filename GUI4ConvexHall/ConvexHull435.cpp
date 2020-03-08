@@ -50,7 +50,7 @@ int GetArrySize(std::string FileName){
     int size;
     std::string x;
     InFile.open(FileName);
-    while(!InFile >> x){
+    while(InFile >> x){
         size++;
     }
     return size;

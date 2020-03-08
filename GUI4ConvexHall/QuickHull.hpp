@@ -1,5 +1,7 @@
 // C++ program to implement Quick Hull algorithm
 // to find convex hull.
+/*
+#include <bits/stdc++.h>
 using namespace std;
 class Quick{
 public:
@@ -7,6 +9,7 @@ public:
     #define iPair pair<int, int>
 
     // Stores the result (points of convex hull)
+    set hull;
 
     // Returns the side of point p with respect to line
     // joining points p1 and p2.
@@ -21,4 +24,4 @@ public:
     // 1 or -1 specifying each of the parts made by the line L
     void quickHull(iPair a[], int n, iPair p1, iPair p2, int side);
 
-};
+};*/
