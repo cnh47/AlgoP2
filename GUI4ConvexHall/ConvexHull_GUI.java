@@ -269,25 +269,25 @@ public class ConvexHull_GUI extends JPanel
           CH.testFileGen("rectangle1000.txt", "rectangle", 1000); //generate data points
           CH.testFileGen("rectangle10000.txt", "rectangle", 10000); //generate data points
           CH.testFileGen("rectangle100000.txt", "rectangle", 100000); //generate data points
-          CH.testFileGen("rectangle1000000.txt", "rectangle", 1000000); //generate data points
+          CH.testFileGen("rectangle1000000.txt", "rectangle", 10000000); //generate data points
           CH.testFileGen("circle10.txt", "circle", 10); //generate data points
           CH.testFileGen("circle100.txt", "circle", 100); //generate data points
           CH.testFileGen("circle1000.txt", "circle", 1000); //generate data points
           CH.testFileGen("circle10000.txt", "circle", 10000); //generate data points
           CH.testFileGen("circle100000.txt", "circle", 100000); //generate data points
-          CH.testFileGen("circle1000000.txt", "circle", 1000000); //generate data points
+          CH.testFileGen("circle1000000.txt", "circle", 10000000); //generate data points
           CH.testFileGen("onCircle10.txt", "onCircle", 10); //generate data points
           CH.testFileGen("onCircle100.txt", "onCircle", 100); //generate data points
           CH.testFileGen("onCircle1000.txt", "onCircle", 1000); //generate data points
           CH.testFileGen("onCircle10000.txt", "onCircle", 10000); //generate data points
           CH.testFileGen("onCircle100000.txt", "onCircle", 100000); //generate data points
-          CH.testFileGen("onCircle1000000.txt", "onCircle", 1000000); //generate data points
+          CH.testFileGen("onCircle1000000.txt", "onCircle", 10000000); //generate data points
           CH.testFileGen("triangle10.txt", "triangle", 10); //generate data points
           CH.testFileGen("triangle100.txt", "triangle", 100); //generate data points
           CH.testFileGen("triangle1000.txt", "triangle", 1000); //generate data points
           CH.testFileGen("triangle10000.txt", "triangle", 10000); //generate data points
           CH.testFileGen("triangle100000.txt", "triangle", 100000); //generate data points
-          CH.testFileGen("triangle1000000.txt", "triangle", 1000000); //generate data points
+          CH.testFileGen("triangle1000000.txt", "triangle", 10000000); //generate data points
           System.out.println("done");
           System.exit(0);
       }
