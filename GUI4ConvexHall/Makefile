@@ -173,26 +173,3 @@ runA : convexHull435
 	time -o output/QuickHull/Q_test_triangle10000.txt -f "Program: %C\nTotal time: %E\n" ./convexHull435 Q triangle10000.txt
 	time -o output/QuickHull/Q_test_triangle100000.txt -f "Program: %C\nTotal time: %E\n" ./convexHull435 Q triangle100000.txt
 	time -o output/QuickHull/Q_test_triangle1000000.txt -f "Program: %C\nTotal time: %E\n" ./convexHull435 Q triangle1000000.txt
-
-
-#.PHONY: all
-#all : convexHull435
-
-#convexHull435 : convexHull435.o Graham.o Jarvis.o ConvexHull.o
-#g++ convexHull435.o Graham.o Jarvis.o ConvexHull.o -o convexHull435
-
-#convexHull435.o : convexHull435.cc Graham.hpp Jarvis.hpp ConvexHull.hpp
-#g++ -std=c++11 -c convexHull435.cc
-
-#Graham.o : Graham.cpp
-#g++ -std=c++11 -c Graham.cpp
-
-#Jarvis.o : Jarvis.cpp
-#g++ -std=c++11 -c Jarvis.cpp
-
-#ConvexHull.o : ConvexHull.cpp
-#g++ -std=c++11 -c ConvexHull.cpp
-
-#.PHONY: clean
-#clean :
-#@rm -f *.o convexHull435 hull_G.txt hull_J.txt hull_Q.txt
