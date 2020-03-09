@@ -14,6 +14,7 @@ ConvexHull.o : ConvexHull.cpp
 .PHONY: clean
 clean :
 	@rm -f *.o convexHull435 hull_G* hull_J* hull_Q*
+	@rm -f *10*.txt
 
 #generates all hull_J_*.txt files with Jarvis March.
 .PHONY: runJ
