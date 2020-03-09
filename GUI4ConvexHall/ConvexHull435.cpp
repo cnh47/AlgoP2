@@ -102,27 +102,27 @@ int main(int argc, char *argv[])
             {
                 //call your Quickhull algorithm to solve the problem
 
-                // iPair tmp;
-                // std::vector<Point> vPoints;
-                // int n=0, x=0, y=0;
-                //
-                // while(dataFile >> tmp.first >> tmp.second)
-                // {
-                //     vPoints.push_back(tmp);
-                //     ++n;
-                // }
-                //
-                // int vSize = vPoints.size();
-                // iPair aPoints[vSize] = {};
-                // for(int i = 0; i < vSize; ++i){
-                //     aPoints[vSize - i] = vPoints[vSize - i];
-                // }
-                //
-                // outputFile = "hull_G_" + dataFilename;
-                // std::ofstream hullFile(outputFile);
-                // QuickPrintHull(aPoints, n, hullFile);
-                // hullFile.close();
-                // break;
+                iPair tmp;
+                std::vector<iPair> vPair;
+                int n=0, x=0, y=0;
+
+                while(dataFile >> tmp.first >> tmp.second)
+                {
+                    vPair.push_back(tmp);
+                    ++n;
+                }
+
+                int vSize = vPair.size();
+                iPair *aPoints = new iPair [vSize];
+                for(int i = 0; i < vSize; ++i){
+                    aPoints[vSize - i] = vPair[vSize - i];
+                }
+
+                outputFile = "hull_Q_" + dataFilename;
+                std::ofstream hullFile(outputFile);
+                QuickPrintHull(aPoints, n, hullFile);
+                hullFile.close();
+                break;
 
                 outputFile = "hull_Q.txt";
                 break;
@@ -458,7 +458,11 @@ void QuickPrintHull(iPair a[], int n, std::ofstream &output)
 
 	while (!hull.empty())
 	{
-		output << "(" <<( *hull.begin()).first << "\t" << (*hull.begin()).second << std::endl;
+		output << (*hull.begin()).first << "\t" << (*hull.begin()).second << std::endl;
 		hull.erase(hull.begin());
 	}
 }
+
+////////////////////////////////////////////////////////////////
+//                    End of Quickhull                        //
+////////////////////////////////////////////////////////////////
