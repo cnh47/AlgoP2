@@ -1,4 +1,10 @@
 // You need to complete this program for your second project.
+// Project Completed by Chayton Hamric
+// Code for Graham Scan, Jarvis March, and QuickHull were all created
+// and developed by www.geeksforgeeks.org
+// Above every algorithm there is a link to the algorithm
+// Permission to use others algorithms was given by Dr.Z.-H. Duan
+
 // Standard libraries
 #include <stack>
 #include <stdlib.h>
@@ -6,10 +12,6 @@
 #include <fstream>
 #include <vector>
 #include <set>
-
-// #include "JarvisMarch.hpp"
-//#include "Graham.hpp"
-// #include "convexHull435.hpp"
 
 struct Point
 {
@@ -455,7 +457,9 @@ void QuickPrintHull(iPair a[], int n, std::ofstream &output)
 	// other side of line joining a[min_x] and
 	// a[max_x]
 	QuickHull(a, n, a[min_x], a[max_x], -1);
-	
+
+	//qsort();
+
 	while (!hull.empty())
 	{
 		output << (*hull.begin()).first << "\t" << (*hull.begin()).second << std::endl;
