@@ -3,7 +3,7 @@
 all : convexHull435
 
 convexHull435 : convexHull435.o
-	g++ convexHull435.o -o convexHull435.cpp
+	g++ convexHull435.o -o convexHull435
 
 convexHull435.o : convexHull435.cpp
 	g++ -std=c++17 -c convexHull435.cpp
