@@ -1,13 +1,11 @@
-
 // You need to complete this program for your second project.
-
 // Standard libraries
 #include <stack>
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include<bits/stdc++.h>
+#include <set>
 
 // #include "JarvisMarch.hpp"
 //#include "Graham.hpp"
@@ -22,7 +20,7 @@ int JarvisOrientation(Point p, Point q, Point r);
 void JarvisConvexHull(std::vector<Point> points, int n, std::ofstream &output);
 
 Point GrahamNextToTop(std::stack<Point> &S);
-int GrahamSwap(Point &p1, Point &p2);
+void GrahamSwap(Point &p1, Point &p2);
 int GrahamDistSq(Point p1, Point p2);
 int GrahamOrientation(Point p, Point q, Point r);
 int GrahamCompare(const void *vp1, const void *vp2);
@@ -68,7 +66,7 @@ int main(int argc, char *argv[])
                 }
 
                 int vSize = vPoints.size();
-                Point aPoints[vSize] = {};
+                Point *aPoints = new Point[vSize];
                 for(int i = 0; i < vSize; ++i){
                     aPoints[vSize - i] = vPoints[vSize - i];
                 }
@@ -77,6 +75,8 @@ int main(int argc, char *argv[])
                 std::ofstream hullFile(outputFile);
                 GrahamConvexHull(aPoints, n, hullFile);
                 hullFile.close();
+				delete [] aPoints;
+				aPoints = NULL;
                 break;
             }
             case 'J':
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
             case 'Q':
             {
                 //call your Quickhull algorithm to solve the problem
-                
+
                 // iPair tmp;
                 // std::vector<Point> vPoints;
                 // int n=0, x=0, y=0;
@@ -239,7 +239,7 @@ Point GrahamNextToTop(std::stack<Point> &S)
 }
 
 // A utility function to swap two points
-int GrahamSwap(Point &p1, Point &p2)
+void GrahamSwap(Point &p1, Point &p2)
 {
 	Point temp = p1;
 	p1 = p2;
