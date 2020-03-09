@@ -455,7 +455,7 @@ void QuickPrintHull(iPair a[], int n, std::ofstream &output)
 	// other side of line joining a[min_x] and
 	// a[max_x]
 	QuickHull(a, n, a[min_x], a[max_x], -1);
-
+	
 	while (!hull.empty())
 	{
 		output << (*hull.begin()).first << "\t" << (*hull.begin()).second << std::endl;
