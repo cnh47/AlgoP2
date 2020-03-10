@@ -1,5 +1,6 @@
 // You need to complete this program for your second project.
 // Project Completed by Chayton Hamric
+
 // Code for Graham Scan, Jarvis March, and QuickHull were all created
 // and developed by www.geeksforgeeks.org
 // Above every algorithm there is a link to the algorithm
@@ -34,10 +35,10 @@ void GrahamConvexHull(Point points[], int n, std::ofstream &output);
 // Stores the result (points of convex hull)
 std::set<iPair> hull;
 
-int QuickFindSide(iPair p1, iPair p2, iPair p);
-int QuickLineDist(iPair p1, iPair p2, iPair p);
-void QuickHull(iPair a[], int n, iPair p1, iPair p2, int side);
-void QuickPrintHull(iPair a[], int n, std::ofstream &output);
+int QuickFindSide(Point p1, Point p2, Point p);
+int QuickLineDist(Point p1, Point p2, Point p);
+void QuickHull(Point a[], int n, Point p1, Point p2, int side);
+void QuickPrintHull(Point a[], int n, std::vector<Point>& convexHull, std::ofstream &output);
 
 int main(int argc, char *argv[])
 {
@@ -51,7 +52,6 @@ int main(int argc, char *argv[])
         std::ifstream dataFile;
         dataFile.open(dataFilename);
         //read your data points from dataFile (see class example for the format)
-
         switch(algType[0])
         {
             case 'G':
@@ -75,11 +75,13 @@ int main(int argc, char *argv[])
 
                 outputFile = "hull_G_" + dataFilename;
                 std::ofstream hullFile(outputFile);
-                GrahamConvexHull(aPoints, n, hullFile);
+				for(int i = 0; i < 25; i++){
+					GrahamConvexHull(aPoints, n, hullFile);
+				}
                 hullFile.close();
 				delete [] aPoints;
 				aPoints = NULL;
-                break;
+	            break;
             }
             case 'J':
                 {
@@ -96,7 +98,9 @@ int main(int argc, char *argv[])
 
                     outputFile = "hull_J_" + dataFilename;
                     std::ofstream hullFile(outputFile);
-                    JarvisConvexHull(points, n, hullFile);
+					for(int i = 0; i < 25; i++){
+						JarvisConvexHull(points, n, hullFile);
+					}
                     hullFile.close();
                     break;
                 }
@@ -104,25 +108,27 @@ int main(int argc, char *argv[])
             {
                 //call your Quickhull algorithm to solve the problem
 
-                iPair tmp;
-                std::vector<iPair> vPair;
+				Point tmp;
+                std::vector<Point> vPair, cHull;
                 int n=0, x=0, y=0;
 
-                while(dataFile >> tmp.first >> tmp.second)
+                while(dataFile >> tmp.x >> tmp.y)
                 {
                     vPair.push_back(tmp);
                     ++n;
                 }
 
                 int vSize = vPair.size();
-                iPair *aPoints = new iPair [vSize];
+                Point *aPoints = new Point [vSize];
                 for(int i = 0; i < vSize; ++i){
-                    aPoints[vSize - i] = vPair[vSize - i];
+                    aPoints[i] = vPair[i];
                 }
 
                 outputFile = "hull_Q_" + dataFilename;
                 std::ofstream hullFile(outputFile);
-                QuickPrintHull(aPoints, n, hullFile);
+				for(int i = 0; i < 25; i++){
+                	QuickPrintHull(aPoints, n, cHull, hullFile);
+				}
                 hullFile.close();
                 break;
 
@@ -131,9 +137,10 @@ int main(int argc, char *argv[])
             }
             default:
                 //any other parameter is called
-                std::cout << "You done messed up AA Ron!" << std::endl;
+                std::cout << "Not A Correct Parameter" << std::endl;
                 break;
         }
+
 
         //write your convex hull to the outputFile (see class example for the format)
         //you should be able to visulize your convex hull using the "ConvexHull_GUI" program.
@@ -374,10 +381,10 @@ void GrahamConvexHull(Point points[], int n, std::ofstream &output)
 
 // Returns the side of point p with respect to line
 // joining points p1 and p2.
-int QuickFindSide(iPair p1, iPair p2, iPair p)
+int QuickFindSide(Point p1, Point p2, Point p)
 {
-	int val = (p.second - p1.second) * (p2.first - p1.first) -
-			(p2.second - p1.second) * (p.first - p1.first);
+	int val = (p.y - p1.y) * (p2.x - p1.x) -
+			(p2.y - p1.y) * (p.x - p1.x);
 
 	if (val > 0)
 		return 1;
@@ -389,82 +396,110 @@ int QuickFindSide(iPair p1, iPair p2, iPair p)
 // returns a value proportional to the distance
 // between the point p and the line joining the
 // points p1 and p2
-int QuickLineDist(iPair p1, iPair p2, iPair p)
+int QuickLineDist(Point p1, Point p2, Point p)
 {
-	return abs ((p.second - p1.second) * (p2.first - p1.first) -
-			(p2.second - p1.second) * (p.first - p1.first));
+	return abs ((p.y - p1.y) * (p2.x - p1.x) -
+			(p2.y - p1.y) * (p.x - p1.x));
 }
 
 // End points of line L are p1 and p2. side can have value
 // 1 or -1 specifying each of the parts made by the line L
-void QuickHull(iPair a[], int n, iPair p1, iPair p2, int side)
+void QuickHull(Point points[], int n, const Point& point1, const Point& point2, int side, std::vector<Point>& convexHull)
 {
 	int ind = -1;
-	int max_dist = 0;
+    int max_dist = 0;
+    // finding the point with maximum distance
+    // from L and also on the specified side of L.
+    for (int i = 0; i < n; i++)
+    {
+        int temp = QuickLineDist(point1, point2, points[i]);
+        if (QuickFindSide(point1, point2, points[i]) == side && temp > max_dist)
+        {
+            ind = i;
+            max_dist = temp;
+        }
+    }
 
-	// finding the point with maximum distance
-	// from L and also on the specified side of L.
-	for (int i=0; i<n; i++)
-	{
-		int temp = QuickLineDist(p1, p2, a[i]);
-		if (QuickFindSide(p1, p2, a[i]) == side && temp > max_dist)
-		{
-			ind = i;
-			max_dist = temp;
-		}
-	}
+    // If no point is found, add the end points
+    // of L to the convex hull.
+    if (ind == -1)
+    {
+        convexHull.push_back(point1);
+        convexHull.push_back(point2);
+        return;
+    }
 
-	// If no point is found, add the end points
-	// of L to the convex hull.
-	if (ind == -1)
-	{
-		hull.insert(p1);
-		hull.insert(p2);
-		return;
-	}
+    // Recur for the two parts divided by a[ind]
+    QuickHull(points, n, points[ind], point1, -QuickFindSide(points[ind], point1, point2), convexHull);
+    QuickHull(points, n, points[ind], point2, -QuickFindSide(points[ind], point2, point1), convexHull);
 
-	// Recur for the two parts divided by a[ind]
-	QuickHull(a, n, a[ind], p1, -QuickFindSide(a[ind], p1, p2));
-	QuickHull(a, n, a[ind], p2, -QuickFindSide(a[ind], p2, p1));
 }
 
-void QuickPrintHull(iPair a[], int n, std::ofstream &output)
+void QuickPrintHull(Point points[], int n, std::vector<Point>& convexHull, std::ofstream &output)
 {
-	// a[i].second -> y-coordinate of the ith point
-	if (n < 3)
-	{
-		std::cout << "Convex hull not possible\n";
-		return;
-	}
+	// a[i].y -> y-coordinate of the ith point
+    if (n < 3)
+    {
+        std::cout << "Convex hull not possible\n";
+        return;
+    }
 
-	// Finding the point with minimum and
-	// maximum x-coordinate
-	int min_x = 0, max_x = 0;
-	for (int i=1; i<n; i++)
-	{
-		if (a[i].first < a[min_x].first)
-			min_x = i;
-		if (a[i].first > a[max_x].first)
-			max_x = i;
-	}
+    // Finding the point with minimum and
+    // maximum x-coordinate
+    int min_x = 0, max_x = 0;
+    for (int i = 1; i < n; i++)
+    {
+        if (points[i].x < points[min_x].x)
+            min_x = i;
+        if (points[i].y > points[max_x].y)
+            max_x = i;
+    }
 
-	// Recursively find convex hull points on
-	// one side of line joining a[min_x] and
-	// a[max_x]
-	QuickHull(a, n, a[min_x], a[max_x], 1);
+    // Recursively find convex hull points on
+    // one side of line joining a[min_x] and
+    // a[max_x].
 
-	// Recursively find convex hull points on
-	// other side of line joining a[min_x] and
-	// a[max_x]
-	QuickHull(a, n, a[min_x], a[max_x], -1);
+    QuickHull(points, n, points[min_x], points[max_x], 1, convexHull);
 
-	//qsort();
+    // Recursively find convex hull points on
+    // other side of line joining a[min_x] and
+    // a[max_x]
 
-	while (!hull.empty())
-	{
-		output << (*hull.begin()).first << "\t" << (*hull.begin()).second << std::endl;
-		hull.erase(hull.begin());
-	}
+    QuickHull(points, n, points[min_x], points[max_x], -1, convexHull);
+
+    // copy vector into an array
+    int hsize = convexHull.size();
+    Point arrayHull[hsize];
+    for (size_t i = 0; i < hsize; ++i)
+    {
+        arrayHull[i].x = convexHull[i].x;
+        arrayHull[i].y = convexHull[i].y;
+    }
+
+    // find lowest point
+    int ymin = arrayHull[0].y, min = 0;
+    for (int i = 1; i < hsize; i++)
+    {
+        int yVal = arrayHull[i].y;
+
+        // Pick the bottom-most or chose the left
+        // most point in case of tie
+        if ((yVal < ymin) || (ymin == yVal &&
+            arrayHull[i].x < arrayHull[min].x))
+            ymin = arrayHull[i].y, min = i;
+    }
+
+    // Place the bottom-most point at x position
+    std::swap(arrayHull[0], arrayHull[min]);
+
+    p0 = arrayHull[0];
+    qsort(&arrayHull[1], hsize - 1, sizeof(Point), GrahamCompare);
+
+    // Print Result
+    for (size_t i = 0; i < hsize; ++i)
+    {
+        output << arrayHull[i].x << '\t' << arrayHull[i].y << '\n';
+    }
 }
 
 ////////////////////////////////////////////////////////////////
